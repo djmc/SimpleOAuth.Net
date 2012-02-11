@@ -6,7 +6,9 @@ OAuth libraries come in all shapes and sizes, however in the .Net land, they onl
 * No dependencies,
 * Works in .Net 3.0+,
 * Extends off WebRequest objects,
-* Create and sign a request in ~4 lines of code.
+* Create and sign a request in ~5 lines of code.
+
+Please note, this is for client applications only. You'll need to find something else if you're looking for a server, for example, DevDefined.OAuth.
 
 ## You have me so far, give me an example!
 
@@ -19,7 +21,7 @@ Well, OK then!
 		.WithTokens(tokens)
 		.InHeader();
 
-Hell, we could've just...
+Or, you can condense your <code>WithTokens</code> call into the <code>SignRequest</code>
 
 	request.SignRequest(tokens).InHeader();
 
