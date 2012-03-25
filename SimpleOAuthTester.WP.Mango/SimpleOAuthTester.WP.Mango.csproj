@@ -69,7 +69,11 @@
     </Compile>
     <Compile Include="Classes\BasePhoneApplicationPage.cs" />
     <Compile Include="Classes\IDisplaysIndeterminateProgress.cs" />
+    <Compile Include="Classes\Messenger.cs" />
     <Compile Include="Classes\RelayCommand.cs" />
+    <Compile Include="Classes\SecretRepository.cs" />
+    <Compile Include="Classes\SimpleCommand.cs" />
+    <Compile Include="Classes\StringExtensions.cs" />
     <Compile Include="Classes\TwitterTokensRepository.cs" />
     <Compile Include="Classes\UIHelper.cs" />
     <Compile Include="Classes\WebBrowserUtility.cs" />

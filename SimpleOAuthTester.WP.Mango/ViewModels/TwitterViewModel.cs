@@ -11,7 +11,6 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
 {
     public class TwitterViewModel : ViewModelBase, IDisplaysIndeterminateProgress
     {
-        private Tokens RequestTokens { get; set; }
         private const string OAuthRoot = "http://term.ie/oauth/example/";
 
         #region Bindable Properties
@@ -189,6 +188,7 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
         public RelayCommand AuthenticateCommand { get; private set; }
         public RelayCommand GetResponseCommand { get; private set; }
         public RelayCommand LoadedCommand { get; private set; }
+        public RelayCommand NavigatedToCommand { get; private set; }
 
         private bool _isAuthenticated;
         public bool IsAuthenticated
@@ -205,7 +205,7 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                     AuthenticateCommand.RaiseCanExecuteChanged();
                     GetResponseCommand.RaiseCanExecuteChanged();
 
-                    AuthenticationStatus = "Authenticated with token: " + RequestTokens.AccessToken;
+                    AuthenticationStatus = "Authenticated with token: " + TwitterTokensRepository.Tokens.AccessToken;
                 }
             }
         }
@@ -217,8 +217,8 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
             PageTitle = "twitter";
             AuthenticationStatus = "Not Authenticated";
             HttpMethod = "GET";
-            RelativeUrl = "echo_api.php";
-            HttpParameters = "method=foo&bar=baz";
+            RelativeUrl = "account/verify_credentials.json";
+            HttpParameters = "include_entities=true";
 
             if (DesignerProperties.IsInDesignTool)
             {
@@ -228,65 +228,23 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
             AuthenticateCommand = new RelayCommand(Authenticate, () => IsAuthenticated == false);
             GetResponseCommand = new RelayCommand(GetResponse, () => IsAuthenticated == true);
             LoadedCommand = new RelayCommand(HandleLoaded);
+            NavigatedToCommand = new RelayCommand(HandleNavigatedTo);
+        }
+
+        private void HandleNavigatedTo()
+        {
+            IsAuthenticated = TwitterTokensRepository.Tokens.AccessToken.HasValue()
+                && TwitterTokensRepository.Tokens.AccessTokenSecret.HasValue();
         }
 
         private void Authenticate()
         {
-            var request = WebRequest.Create(Path.Combine(OAuthRoot, "request_token.php"));
-
-            request.Method = "POST";
-
-            request.SignRequest()
-                .WithTokens(RequestTokens)
-                .InHeader();
-
-            EnableProgressIndicator("Waiting on term.ie...");
-
-            request.GetOAuthTokensAsync((accessTokens, exAuth) =>
-                {
-                    try
-                    {
-                        if (exAuth != null)
-                        {
-                            UIHelper.SafeDispatch(() =>
-                                MessageBox.Show("Exception:\n" + exAuth, "Error authenticating", MessageBoxButton.OK));
-                            return;
-                        }
-
-                        RequestTokens.MergeWith(accessTokens);
-
-                        var keySwapRequest = WebRequest.Create(Path.Combine(OAuthRoot, "access_token.php"));
-
-                        keySwapRequest.Method = "POST";
-
-                        keySwapRequest.SignRequest()
-                            .WithTokens(RequestTokens)
-                            .InHeader();
-
-                        keySwapRequest.GetOAuthTokensAsync((finalAccessTokens, exAccess) =>
-                           {
-                               if (exAccess != null)
-                               {
-                                   UIHelper.SafeDispatch(() => 
-                                       MessageBox.Show("Exception:\n" + exAccess, "Error getting access tokens", MessageBoxButton.OK));
-                                   return;
-                               }
-
-                               RequestTokens.MergeWith(finalAccessTokens);
-
-                               IsAuthenticated = true;
-                           });
-                    }
-                    finally
-                    {
-                        DisableProgressIndicator();
-                    }
-                });
+            Messenger.Send(new SimpleCommand { CommandType = SimpleCommandType.NeedsAuthentication });
         }
 
         private void GetResponse()
         {
-            EnableProgressIndicator("Waiting on term.ie...");
+            EnableProgressIndicator("Waiting on Twitter...");
             ResponseText = "Waiting...";
             string methodInput = HttpMethod.ToUpper();
             string urlInput = Path.Combine(OAuthRoot, RelativeUrl);
@@ -302,7 +260,7 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
 
             var request = WebRequest.Create(urlInput);
             request.Method = methodInput;
-            var signingRequest = request.SignRequest(RequestTokens).WithEncryption(EncryptionMethod.HMACSHA1);
+            var signingRequest = request.SignRequest(TwitterTokensRepository.Tokens).WithEncryption(EncryptionMethod.HMACSHA1);
 
             Stream requestStream = null;
             StreamWriter requestStreamWriter = null;
@@ -390,7 +348,6 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
 
         private void HandleLoaded()
         {
-            RequestTokens = new Tokens() { ConsumerKey = "key", ConsumerSecret = "secret" };
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using SimpleOAuthTester.WP.Mango.Classes;
 
 namespace SimpleOAuthTester.WP.Mango
 {
@@ -57,6 +58,7 @@ namespace SimpleOAuthTester.WP.Mango
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            Messenger.Subscribe<SimpleCommand>(HandleSimpleCommand);
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -101,6 +103,35 @@ namespace SimpleOAuthTester.WP.Mango
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
+        }
+
+        private void HandleSimpleCommand(SimpleCommand command)
+        {
+            UIHelper.SafeDispatch(() =>
+                {
+                    if (command.CommandType == SimpleCommandType.SuccessfulAuthentication)
+                    {
+                        if (RootFrame.CanGoBack)
+                        {
+                            RootFrame.GoBack();
+                        }
+                    }
+                    else if (command.CommandType == SimpleCommandType.AuthenticationFailure)
+                    {
+                        if (!String.IsNullOrEmpty(command.Message))
+                        {
+                            MessageBox.Show(command.Message);
+                        }
+                        if (RootFrame.CanGoBack)
+                        {
+                            RootFrame.GoBack();
+                        }
+                    }
+                    else if (command.CommandType == SimpleCommandType.NeedsAuthentication)
+                    {
+                        RootFrame.Navigate(new Uri("/AuthenticateToTwitter.xaml", UriKind.Relative));
+                    }
+                });
         }
 
         #region Phone application initialization

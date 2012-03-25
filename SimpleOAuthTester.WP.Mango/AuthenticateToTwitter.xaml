@@ -31,7 +31,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBlock Text="Please wait..." VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource PhoneTextNormalStyle}" />
-            <phone:WebBrowser classes:WebBrowserUtility.BindableSource="{Binding WebUrl}" Opacity="0" />
+            <phone:WebBrowser classes:WebBrowserUtility.BindableSource="{Binding WebUrl}" Opacity="{Binding WebOpacity}" Navigating="WebBrowser_Navigating" Navigated="WebBrowser_Navigated" />
         </Grid>
     </Grid>
  

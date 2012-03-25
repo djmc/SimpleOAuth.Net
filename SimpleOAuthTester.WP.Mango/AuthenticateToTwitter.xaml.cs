@@ -31,5 +31,21 @@ namespace SimpleOAuthTester.WP.Mango
             InitializeComponent();
             ViewModel.PropertyChanged += HandleProgressPropertyChanged;
         }
+
+        private void WebBrowser_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            ViewModel.BrowserNavigated.Execute();
+        }
+
+        private void WebBrowser_Navigating(object sender, NavigatingEventArgs e)
+        {
+            ViewModel.BrowserNavigating.Execute(e);
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            ViewModel.NavigatedTo.Execute();
+            base.OnNavigatedTo(e);
+        }
     }
 }
