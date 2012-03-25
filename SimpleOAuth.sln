@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuth", "SimpleOAuth\SimpleOAuth.csproj", "{7195A9BE-2949-4819-9BEB-7B5F366B7CBC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{19757E26-4E21-46F4-9D0E-924903425130}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuthTwitter", "SimpleOAuthTwitter\SimpleOAuthTwitter.csproj", "{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuthTester", "Samples\SimpleOAuthTester\SimpleOAuthTester.csproj", "{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuthTwitter", "Samples\SimpleOAuthTwitter\SimpleOAuthTwitter.csproj", "{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuth.WP.Mango", "SimpleOAuth.WP.Mango\SimpleOAuth.WP.Mango.csproj", "{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuthTester", "SimpleOAuthTester\SimpleOAuthTester.csproj", "{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +27,6 @@ Global
 		{7195A9BE-2949-4819-9BEB-7B5F366B7CBC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7195A9BE-2949-4819-9BEB-7B5F366B7CBC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7195A9BE-2949-4819-9BEB-7B5F366B7CBC}.Release|x86.ActiveCfg = Release|Any CPU
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|x86.ActiveCfg = Debug|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|x86.Build.0 = Debug|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|Any CPU.ActiveCfg = Release|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|Mixed Platforms.Build.0 = Release|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|x86.ActiveCfg = Release|x86
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|x86.Build.0 = Release|x86
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -51,22 +37,18 @@ Global
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Release|Mixed Platforms.Build.0 = Release|x86
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Release|x86.ActiveCfg = Release|x86
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Release|x86.Build.0 = Release|x86
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|x86.ActiveCfg = Release|Any CPU
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|x86.ActiveCfg = Debug|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Debug|x86.Build.0 = Debug|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|Any CPU.ActiveCfg = Release|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|Mixed Platforms.Build.0 = Release|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|x86.ActiveCfg = Release|x86
+		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{70CD80CC-5FED-47CD-B8A5-AC7E00276EFA} = {19757E26-4E21-46F4-9D0E-924903425130}
-		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F} = {19757E26-4E21-46F4-9D0E-924903425130}
 	EndGlobalSection
 EndGlobal
