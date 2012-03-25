@@ -6,7 +6,6 @@ using SimpleOAuthTester.WP.Mango.Classes;
 using SimpleOAuth;
 using System.IO;
 using Microsoft.Phone.Shell;
-using JsonPrettyPrinterPlus;
 using System.Text;
 
 namespace SimpleOAuthTester.WP.Mango.ViewModels
