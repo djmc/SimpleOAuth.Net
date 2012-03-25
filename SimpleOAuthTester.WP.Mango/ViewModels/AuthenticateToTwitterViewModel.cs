@@ -121,8 +121,8 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                         WebUrl = Path.Combine(
                             TwitterTokensRepository.OAuthRoot,
                             TwitterTokensRepository.AuthenticatePath)
-                            + "?oauth_token" + tokens.AccessToken);
-                });            
+                            + "?oauth_token=" + tokens.AccessToken);
+                });
         }
 
         private void HandleBrowserNavigating(NavigatingEventArgs x)
@@ -165,18 +165,14 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                             }
 
                             tokens.MergeWith(finalAccessTokens);
-                            successfulAuthentication = true;
+
+                            Messenger.Send<SimpleCommand>(new SimpleCommand { CommandType = SimpleCommandType.SuccessfulAuthentication });
                         });
                 }
-            }
-
-            if (successfulAuthentication)
-            {
-                Messenger.Send<SimpleCommand>(new SimpleCommand { CommandType = SimpleCommandType.SuccessfulAuthentication });
-            }
-            else
-            {
-                Messenger.Send<SimpleCommand>(new SimpleCommand { CommandType = SimpleCommandType.AuthenticationFailure, Message = authenticationFailure });
+                else
+                {
+                    Messenger.Send<SimpleCommand>(new SimpleCommand { CommandType = SimpleCommandType.AuthenticationFailure });
+                }
             }
         }
     }
