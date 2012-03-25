@@ -6,6 +6,8 @@ using SimpleOAuthTester.WP.Mango.Classes;
 using SimpleOAuth;
 using System.IO;
 using Microsoft.Phone.Shell;
+using JsonPrettyPrinterPlus;
+using System.Text;
 
 namespace SimpleOAuthTester.WP.Mango.ViewModels
 {
@@ -231,8 +233,7 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
 
         private void HandleNavigatedTo()
         {
-            IsAuthenticated = TwitterTokensRepository.Tokens.AccessToken.HasValue()
-                && TwitterTokensRepository.Tokens.AccessTokenSecret.HasValue();
+            IsAuthenticated = TwitterTokensRepository.HasAccessTokens;
         }
 
         private void Authenticate()

@@ -94,8 +94,8 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
             IndeterminateProgressMessage = "Waiting on Twitter...";
 
             Tokens tokens = TwitterTokensRepository.Tokens;
-            tokens.ConsumerKey = SecretRepository.ConsumerKey;
-            tokens.ConsumerSecret = SecretRepository.ConsumerSecret;
+            tokens.AccessToken = null;
+            tokens.AccessTokenSecret = null;
 
             var request = WebRequest.Create(Path.Combine(
                 TwitterTokensRepository.OAuthRoot,
@@ -165,6 +165,7 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                             }
 
                             tokens.MergeWith(finalAccessTokens);
+                            TwitterTokensRepository.HasAccessTokens = true;
 
                             Messenger.Send<SimpleCommand>(new SimpleCommand { CommandType = SimpleCommandType.SuccessfulAuthentication });
                         });

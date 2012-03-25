@@ -6,6 +6,7 @@ namespace SimpleOAuthTester.WP.Mango.Classes
     public static class TwitterTokensRepository
     {
         public static Tokens Tokens { get; set; }
+        public static bool HasAccessTokens { get; set; }
         public static string OAuthRoot { get { return "https://api.twitter.com/oauth/"; } }
         public static string AuthenticatePath { get { return "authenticate"; } }
         public static string RequestTokenPath { get { return "request_token"; } }
