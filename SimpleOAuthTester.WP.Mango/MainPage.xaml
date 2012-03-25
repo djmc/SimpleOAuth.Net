@@ -11,7 +11,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -22,12 +23,48 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource ApplicationTitle}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding PageTitle}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock Text="Authentication" Style="{StaticResource PhoneTextTitle2Style}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Status:" Style="{StaticResource PhoneTextNormalStyle}" />
+                        <TextBlock Text="{Binding AuthenticationStatus, Mode=OneWay}" Style="{StaticResource PhoneTextNormalStyle}" />
+                    </StackPanel>
+                    <Button Command="{Binding AuthenticateCommand}" Content="Authenticate" Margin="0,0,0,24" />
+
+                    <TextBlock Text="Action" Style="{StaticResource PhoneTextTitle2Style}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                    
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Method:" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding HttpMethod}" HorizontalAlignment="Stretch" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Relative URI:" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding RelativeUrl}" HorizontalAlignment="Stretch" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Params:" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding HttpParameters}" HorizontalAlignment="Stretch" />
+                    </Grid>
+
+                    <Button Command="{Binding GetResponseCommand}" Content="Get Response" Margin="0,0,0,24" />
+                    <Border BorderThickness="1">
+                        <TextBlock Text="{Binding ResponseText}" TextWrapping="Wrap" MinHeight="150" />
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

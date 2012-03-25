@@ -48,7 +48,7 @@
     <Compile Include="UrlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SimpleOAuth\SimpleOAuth.csproj">
+    <ProjectReference Include="..\SimpleOAuth\SimpleOAuth.csproj">
       <Project>{7195A9BE-2949-4819-9BEB-7B5F366B7CBC}</Project>
       <Name>SimpleOAuth</Name>
     </ProjectReference>

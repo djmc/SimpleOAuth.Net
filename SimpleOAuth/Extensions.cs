@@ -135,7 +135,6 @@ namespace SimpleOAuth
 
                                 newTokens.AccessToken = dataValues["oauth_token"];
                                 newTokens.AccessTokenSecret = dataValues["oauth_token_secret"];
-
                             }
                         }
                         catch (Exception ex)

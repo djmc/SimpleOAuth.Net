@@ -10,15 +10,29 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using SimpleOAuthTester.WP.Mango.ViewModels;
 
 namespace SimpleOAuthTester.WP.Mango
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        private MainViewModel ViewModel
+        {
+            get
+            {
+                return DataContext as MainViewModel;
+            }
+        }
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LoadedCommand.Execute();
         }
     }
 }
