@@ -10,9 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using SimpleOAuthTester.WP.Mango.ViewModels;
-using Microsoft.Phone.Shell;
 using SimpleOAuthTester.WP.Mango.Classes;
+using Microsoft.Phone.Shell;
+using SimpleOAuthTester.WP.Mango.ViewModels;
 using System.ComponentModel;
 
 namespace SimpleOAuthTester.WP.Mango
@@ -21,62 +21,54 @@ namespace SimpleOAuthTester.WP.Mango
     {
         private ProgressIndicator indicator = new ProgressIndicator();
 
-        private MainViewModel ViewModel
+        private TermIeViewModel TermIeViewModel
         {
             get
             {
-                return DataContext as MainViewModel;
+                return DataContext as TermIeViewModel;
             }
         }
 
-        // Constructor
+        private TwitterViewModel TwitterViewModel
+        {
+            get
+            {
+                return DataContext as TwitterViewModel;
+            }
+        }
+
         public MainPage()
         {
             InitializeComponent();
             SystemTray.SetProgressIndicator(this, indicator);
-            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            TwitterViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            TermIeViewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            IDisplaysIndeterminateProgress vm = sender as IDisplaysIndeterminateProgress;
+
+            if (vm == null)
+            {
+                throw new ArgumentException("Sender was not an IDisplaysIndeterminateProgress.", "sender");
+            }
+
             if (e.PropertyName == "HasIndeterminateProgress")
             {
-                if (ViewModel.HasIndeterminateProgress != indicator.IsIndeterminate)
+                if (vm.HasIndeterminateProgress != indicator.IsIndeterminate)
                 {
-                    indicator.IsIndeterminate = ViewModel.HasIndeterminateProgress;
-                    indicator.IsVisible = ViewModel.HasIndeterminateProgress;
+                    indicator.IsIndeterminate = vm.HasIndeterminateProgress;
+                    indicator.IsVisible = vm.HasIndeterminateProgress;
                 }
             }
             else if (e.PropertyName == "IndeterminateProgressMessage")
             {
-                if (ViewModel.IndeterminateProgressMessage != indicator.Text)
+                if (vm.IndeterminateProgressMessage != indicator.Text)
                 {
-                    indicator.Text = ViewModel.IndeterminateProgressMessage;
+                    indicator.Text = vm.IndeterminateProgressMessage;
                 }
             }
-        }
-
-        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.LoadedCommand.Execute();
-        }
-
-        private void EnableProgressIndicator(string text)
-        {
-            UIHelper.SafeDispatch(() =>
-                {
-                    indicator.IsIndeterminate = true;
-                    indicator.Text = text;
-                    indicator.IsVisible = true;
-                });
-        }
-
-        private void DisableProgressIndicator()
-        {
-            UIHelper.SafeDispatch(() =>
-            {
-                indicator.IsVisible = false;
-            });
         }
     }
 }

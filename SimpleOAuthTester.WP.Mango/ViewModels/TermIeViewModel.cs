@@ -9,7 +9,7 @@ using Microsoft.Phone.Shell;
 
 namespace SimpleOAuthTester.WP.Mango.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class TermIeViewModel : INotifyPropertyChanged, IDisplaysIndeterminateProgress
     {
         private Tokens RequestTokens { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -211,11 +211,11 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
             }
         }
 
-        public MainViewModel()
+        public TermIeViewModel()
         {
             AuthenticationButtonEnabled = true;
             GetResponseButtonEnabled = true;
-            PageTitle = "term.ie test";
+            PageTitle = "term.ie";
             AuthenticationStatus = "Not Authenticated";
             HttpMethod = "GET";
             RelativeUrl = "echo_api.php";
