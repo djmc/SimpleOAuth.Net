@@ -10,14 +10,26 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using SimpleOAuthTester.WP.Mango.ViewModels;
+using Microsoft.Phone.Shell;
+using SimpleOAuthTester.WP.Mango.Classes;
 
 namespace SimpleOAuthTester.WP.Mango
 {
-    public partial class AuthenticateToTwitter : PhoneApplicationPage
+    public partial class AuthenticateToTwitter : BasePhoneApplicationPage
     {
+        private AuthenticateToTwitterViewModel ViewModel
+        {
+            get
+            {
+                return DataContext as AuthenticateToTwitterViewModel;
+            }
+        }
+
         public AuthenticateToTwitter()
         {
             InitializeComponent();
+            ViewModel.PropertyChanged += HandleProgressPropertyChanged;
         }
     }
 }

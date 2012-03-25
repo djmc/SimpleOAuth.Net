@@ -67,10 +67,12 @@
     <Compile Include="AuthenticateToTwitter.xaml.cs">
       <DependentUpon>AuthenticateToTwitter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\BasePhoneApplicationPage.cs" />
     <Compile Include="Classes\IDisplaysIndeterminateProgress.cs" />
     <Compile Include="Classes\RelayCommand.cs" />
     <Compile Include="Classes\TwitterTokensRepository.cs" />
     <Compile Include="Classes\UIHelper.cs" />
+    <Compile Include="Classes\WebBrowserUtility.cs" />
     <Compile Include="TwitterControl.xaml.cs">
       <DependentUpon>TwitterControl.xaml</DependentUpon>
     </Compile>

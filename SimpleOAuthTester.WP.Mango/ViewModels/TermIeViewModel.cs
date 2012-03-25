@@ -12,7 +12,6 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
     public class TermIeViewModel : ViewModelBase, IDisplaysIndeterminateProgress
     {
         private Tokens RequestTokens { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
         private const string OAuthRoot = "http://term.ie/oauth/example/";
 
         #region Bindable Properties

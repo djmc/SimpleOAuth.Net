@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage 
+﻿<classes:BasePhoneApplicationPage
     x:Class="SimpleOAuthTester.WP.Mango.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:SimpleOAuthTester.WP.Mango"
+    xmlns:classes="clr-namespace:SimpleOAuthTester.WP.Mango.Classes"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -43,4 +44,4 @@
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
     
-</phone:PhoneApplicationPage>
+</classes:BasePhoneApplicationPage>

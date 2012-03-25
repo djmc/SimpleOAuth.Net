@@ -17,10 +17,8 @@ using System.ComponentModel;
 
 namespace SimpleOAuthTester.WP.Mango
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : BasePhoneApplicationPage
     {
-        private readonly ProgressIndicator indicator = new ProgressIndicator();
-
         private MainViewModel ViewModel
         {
             get
@@ -48,35 +46,8 @@ namespace SimpleOAuthTester.WP.Mango
         public MainPage()
         {
             InitializeComponent();
-            SystemTray.SetProgressIndicator(this, indicator);
-            TwitterViewModel.PropertyChanged += ViewModel_PropertyChanged;
-            TermIeViewModel.PropertyChanged += ViewModel_PropertyChanged;
-        }
-
-        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            IDisplaysIndeterminateProgress vm = sender as IDisplaysIndeterminateProgress;
-
-            if (vm == null)
-            {
-                throw new ArgumentException("Sender was not an IDisplaysIndeterminateProgress.", "sender");
-            }
-
-            if (e.PropertyName == "HasIndeterminateProgress")
-            {
-                if (vm.HasIndeterminateProgress != indicator.IsIndeterminate)
-                {
-                    indicator.IsIndeterminate = vm.HasIndeterminateProgress;
-                    indicator.IsVisible = vm.HasIndeterminateProgress;
-                }
-            }
-            else if (e.PropertyName == "IndeterminateProgressMessage")
-            {
-                if (vm.IndeterminateProgressMessage != indicator.Text)
-                {
-                    indicator.Text = vm.IndeterminateProgressMessage;
-                }
-            }
+            TwitterViewModel.PropertyChanged += HandleProgressPropertyChanged;
+            TermIeViewModel.PropertyChanged += HandleProgressPropertyChanged;
         }
     }
 }
