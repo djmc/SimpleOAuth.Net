@@ -64,8 +64,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AuthenticateToTwitter.xaml.cs">
+      <DependentUpon>AuthenticateToTwitter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes\IDisplaysIndeterminateProgress.cs" />
     <Compile Include="Classes\RelayCommand.cs" />
+    <Compile Include="Classes\TwitterTokensRepository.cs" />
     <Compile Include="Classes\UIHelper.cs" />
     <Compile Include="TwitterControl.xaml.cs">
       <DependentUpon>TwitterControl.xaml</DependentUpon>
@@ -80,9 +84,11 @@
     <Compile Include="TermIeControl.xaml.cs">
       <DependentUpon>TermIeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AuthenticateToTwitterViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TwitterViewModel.cs" />
     <Compile Include="ViewModels\TermIeViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +96,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="AuthenticateToTwitter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TwitterControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>

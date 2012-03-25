@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace SimpleOAuthTester.WP.Mango.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : ViewModelBase
     {
         private TermIeViewModel _termIeViewModel;
         public TermIeViewModel TermIeViewModel

@@ -9,7 +9,7 @@ using Microsoft.Phone.Shell;
 
 namespace SimpleOAuthTester.WP.Mango.ViewModels
 {
-    public class TwitterViewModel : INotifyPropertyChanged, IDisplaysIndeterminateProgress
+    public class TwitterViewModel : ViewModelBase, IDisplaysIndeterminateProgress
     {
         private Tokens RequestTokens { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -392,15 +392,6 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
         private void HandleLoaded()
         {
             RequestTokens = new Tokens() { ConsumerKey = "key", ConsumerSecret = "secret" };
-        }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler temp = PropertyChanged;
-            if (temp != null)
-            {
-                UIHelper.SafeDispatch(() => temp(this, new PropertyChangedEventArgs(propertyName)));
-            }
         }
     }
 }
