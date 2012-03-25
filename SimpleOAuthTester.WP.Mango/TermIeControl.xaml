@@ -5,7 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="SimpleOAuthTester.WP.Mango.TermIeControl"
-	d:DesignWidth="456" d:DesignHeight="696">
+	d:DesignWidth="456" d:DesignHeight="696" Loaded="Control_Loaded">
 
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<ScrollViewer>

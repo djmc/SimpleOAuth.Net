@@ -28,6 +28,7 @@ namespace SimpleOAuthTester.WP.Mango
                 return DataContext as MainViewModel;
             }
         }
+
         private TermIeViewModel TermIeViewModel
         {
             get
