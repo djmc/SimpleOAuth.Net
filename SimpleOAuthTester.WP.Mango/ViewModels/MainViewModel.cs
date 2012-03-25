@@ -190,6 +190,7 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
         public RelayCommand AuthenticateCommand { get; private set; }
         public RelayCommand GetResponseCommand { get; private set; }
         public RelayCommand LoadedCommand { get; private set; }
+
         private bool _isAuthenticated;
         public bool IsAuthenticated
         {
