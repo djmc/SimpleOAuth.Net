@@ -118,6 +118,11 @@ namespace SimpleOAuth
         /// <remarks>This is equivalent to setting <see cref="OAuthRequestWrapper.RequestTokens"/>.</remarks>
         public OAuthRequestWrapper WithTokens(Tokens oauthTokens)
         {
+            if (oauthTokens == null)
+            {
+                throw new ArgumentException("oauthTokens cannot be null", "oauthTokens");
+            }
+
             RequestTokens = oauthTokens;
             return this;
         }
