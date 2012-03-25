@@ -38,6 +38,7 @@ namespace SimpleOAuth
             return new OAuthRequestWrapper(request) { RequestTokens = withTokens };
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// For the Request and Access Token stages, makes the request and parses out the OAuth tokens from
         /// the server.
@@ -83,6 +84,82 @@ namespace SimpleOAuth
 
             return newTokens;
         }
+#endif
 
+        /// <summary>
+        /// For the Request and Access Token stages, makes the request and parses out the OAuth tokens from
+        /// the server.
+        /// </summary>
+        /// <param name="request">The request that needs to be signed with OAuth.</param>
+        /// <returns>A <see cref="Tokens"/> object containing the Access Token and Access Secret provided by the OAuth server.</returns>
+        /// <remarks>You typically call this when making a request to get the users access tokens and combine this with the <see cref="Tokens.MergeWith"/> function.</remarks>
+        /// <example>
+        ///     <code>
+        ///     var request = WebRequest.Create("https://api.twitter.com/oauth/request_token") { Method = "POST" };
+        ///     request.SignRequest(RequestTokens)
+        ///         .WithCallback("oob")
+        ///         .InHeader();
+        ///
+        ///     var accessTokens = request.GetOAuthTokens();
+        ///     RequestTokens.MergeWith(accessTokens);
+        ///     </code>
+        /// In the above example, the <see cref="WebRequest"/> is created, and signed with a specific set of <see cref="Tokens"/>. A call to <see cref="GetOAuthTokens"/>
+        /// is made and then merged with the original Request Tokens.
+        /// </example>
+        /// <exception cref="WebException">Thrown when the <paramref name="request"/> encounters an error.</exception>
+        public static void GetOAuthTokensAsync(this WebRequest request, Action<Tokens, Exception> callback)
+        {
+            var newTokens = new Tokens();
+
+            var output = string.Empty;
+
+            WebResponse response = null;
+            StreamReader responseStreamReader = null;
+            Exception thrownException = null;
+
+            request.BeginGetResponse((responseResult) =>
+                {
+                    try
+                    {
+                        try
+                        {
+                            response = request.EndGetResponse(responseResult);
+
+                            responseStreamReader = new StreamReader(response.GetResponseStream());
+
+                            output = responseStreamReader.ReadToEnd();
+                            
+                            if (!String.IsNullOrEmpty(output))
+                            {
+                                var dataValues = UrlHelper.ParseQueryString(output);
+
+                                newTokens.AccessToken = dataValues["oauth_token"];
+                                newTokens.AccessTokenSecret = dataValues["oauth_token_secret"];
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            thrownException = ex;
+                        }
+
+                        if (thrownException != null)
+                        {
+                            callback(null, thrownException);
+                        }
+                        else
+                        {
+                            callback(newTokens, null);
+                        }
+                    }
+                    finally
+                    {
+                        try { if (responseStreamReader != null) responseStreamReader.Dispose(); }
+                        catch { }
+                        try { if (response != null) ((IDisposable)response).Dispose(); }
+                        catch { }
+                    }
+                }, null);
+        }
     }
 }

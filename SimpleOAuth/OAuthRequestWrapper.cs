@@ -215,7 +215,7 @@ namespace SimpleOAuth
                 builder.AppendFormat("{0}=\"{1}\"", UrlHelper.Encode(pair.Key), UrlHelper.Encode(pair.Value));
             }
 
-            ContainedRequest.Headers.Add("Authorization", builder.ToString());
+            ContainedRequest.Headers["Authorization"] = builder.ToString();
         }
         #endregion
 

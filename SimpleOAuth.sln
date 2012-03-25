@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuthTester", "Sample
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuthTwitter", "Samples\SimpleOAuthTwitter\SimpleOAuthTwitter.csproj", "{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOAuth.WP.Mango", "SimpleOAuth.WP.Mango\SimpleOAuth.WP.Mango.csproj", "{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,16 @@ Global
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Release|Mixed Platforms.Build.0 = Release|x86
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Release|x86.ActiveCfg = Release|x86
 		{797DB1AA-32A5-4EEE-B5BD-73667CEE112F}.Release|x86.Build.0 = Release|x86
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
