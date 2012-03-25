@@ -15,7 +15,7 @@ namespace SimpleOAuth.Generators
         public string Generate()
         {
             var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0);
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             long stamp = ((now.Ticks - unixEpoch.Ticks) / 10000000);
 
