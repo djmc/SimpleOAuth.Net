@@ -133,6 +133,17 @@ namespace SimpleOAuth
                             {
                                 var dataValues = UrlHelper.ParseQueryString(output);
 
+                                if (!dataValues.ContainsKey("oauth_token")
+                                    || !dataValues.ContainsKey("oauth_token_secret"))
+                                {
+                                    var ex = new Exception("Response did not contain oauth_token and oauth_token_secret. Response is contained in Data of exception.");
+                                    ex.Data.Add("ResponseText", output);
+                                    ex.Data.Add("RequestUri", request.RequestUri);
+                                    ex.Data.Add("RequestMethod", request.Method);
+                                    ex.Data.Add("RequestHeaders", request.Headers);
+                                    ex.Data.Add("ResponseHeaders", response.Headers);
+                                    throw ex;
+                                }
                                 newTokens.AccessToken = dataValues["oauth_token"];
                                 newTokens.AccessTokenSecret = dataValues["oauth_token_secret"];
                             }
