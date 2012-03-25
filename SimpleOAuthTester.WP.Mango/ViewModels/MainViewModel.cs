@@ -248,7 +248,8 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                     {
                         if (exAuth != null)
                         {
-                            MessageBox.Show("Exception:\n" + exAuth, "Error authenticating", MessageBoxButton.OK);
+                            UIHelper.SafeDispatch(() =>
+                                MessageBox.Show("Exception:\n" + exAuth, "Error authenticating", MessageBoxButton.OK));
                             return;
                         }
 
@@ -266,7 +267,8 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                            {
                                if (exAccess != null)
                                {
-                                   MessageBox.Show("Exception:\n" + exAccess, "Error getting access tokens", MessageBoxButton.OK);
+                                   UIHelper.SafeDispatch(() => 
+                                       MessageBox.Show("Exception:\n" + exAccess, "Error getting access tokens", MessageBoxButton.OK));
                                    return;
                                }
 
