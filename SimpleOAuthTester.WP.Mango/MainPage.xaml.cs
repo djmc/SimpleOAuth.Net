@@ -19,13 +19,20 @@ namespace SimpleOAuthTester.WP.Mango
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private ProgressIndicator indicator = new ProgressIndicator();
+        private readonly ProgressIndicator indicator = new ProgressIndicator();
 
+        private MainViewModel ViewModel
+        {
+            get
+            {
+                return DataContext as MainViewModel;
+            }
+        }
         private TermIeViewModel TermIeViewModel
         {
             get
             {
-                return DataContext as TermIeViewModel;
+                return ViewModel.TermIeViewModel;
             }
         }
 
@@ -33,7 +40,7 @@ namespace SimpleOAuthTester.WP.Mango
         {
             get
             {
-                return DataContext as TwitterViewModel;
+                return ViewModel.TwitterViewModel;
             }
         }
 

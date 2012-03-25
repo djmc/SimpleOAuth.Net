@@ -7,12 +7,13 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:SimpleOAuthTester.WP.Mango"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -20,12 +21,12 @@
         <controls:Pivot Title="{StaticResource ApplicationTitle}">
             <!--Pivot item one-->
             <controls:PivotItem Header="{Binding PageTitle}" DataContext="{Binding TermIe, Source={StaticResource Locator}}">
-                <Grid/>
+                <local:TermIeControl/>
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem Header="{Binding PageTitle}" DataContext="{Binding Twitter, Source={StaticResource Locator}}">
-                <Grid/>
+                <local:TwitterControl/>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
