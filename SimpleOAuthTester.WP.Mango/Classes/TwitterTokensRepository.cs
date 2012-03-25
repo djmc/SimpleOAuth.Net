@@ -10,7 +10,7 @@ namespace SimpleOAuthTester.WP.Mango.Classes
         public static string AuthenticatePath { get { return "authenticate"; } }
         public static string RequestTokenPath { get { return "request_token"; } }
         public static string AccessTokenPath { get { return "access_token"; } }
-        public static string ApiRoot { get { return "http://api.twitter.com/1/"; } }
+        public static string ApiRoot { get { return "https://api.twitter.com/1/"; } }
 
         static TwitterTokensRepository()
         {

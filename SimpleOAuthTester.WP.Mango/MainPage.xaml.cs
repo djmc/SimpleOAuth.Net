@@ -49,5 +49,11 @@ namespace SimpleOAuthTester.WP.Mango
             TwitterViewModel.PropertyChanged += HandleProgressPropertyChanged;
             TermIeViewModel.PropertyChanged += HandleProgressPropertyChanged;
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ViewModel.NavigatedToCommand.Execute();
+        }
     }
 }

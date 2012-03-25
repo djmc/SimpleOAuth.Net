@@ -11,8 +11,6 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
 {
     public class TwitterViewModel : ViewModelBase, IDisplaysIndeterminateProgress
     {
-        private const string OAuthRoot = "http://term.ie/oauth/example/";
-
         #region Bindable Properties
         private string _pageTitle;
         public string PageTitle
@@ -247,7 +245,7 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
             EnableProgressIndicator("Waiting on Twitter...");
             ResponseText = "Waiting...";
             string methodInput = HttpMethod.ToUpper();
-            string urlInput = Path.Combine(OAuthRoot, RelativeUrl);
+            string urlInput = Path.Combine(TwitterTokensRepository.ApiRoot, RelativeUrl);
             if (methodInput.Equals("GET") && !String.IsNullOrEmpty(HttpParameters))
             {
                 urlInput += "?" + HttpParameters;

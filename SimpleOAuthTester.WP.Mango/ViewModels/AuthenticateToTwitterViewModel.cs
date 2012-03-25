@@ -158,9 +158,9 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                         {
                             HasIndeterminateProgress = false;
 
-                            if (finalAccessTokens != null)
+                            if (accessException != null)
                             {
-                                Messenger.Send<SimpleCommand>(new SimpleCommand { CommandType = SimpleCommandType.AuthenticationFailure, Message = finalAccessTokens.ToString() });
+                                Messenger.Send<SimpleCommand>(new SimpleCommand { CommandType = SimpleCommandType.AuthenticationFailure, Message = accessException.ToString() });
                                 return;
                             }
 
