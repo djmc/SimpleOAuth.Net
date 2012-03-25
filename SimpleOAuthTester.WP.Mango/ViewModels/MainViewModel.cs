@@ -14,7 +14,6 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
         private Tokens RequestTokens { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         private const string OAuthRoot = "http://term.ie/oauth/example/";
-        private ProgressIndicator indicator = new ProgressIndicator();
 
         #region Bindable Properties
         private string _pageTitle;
@@ -149,6 +148,40 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
                 {
                     _getResponseButtonEnabled = value;
                     OnPropertyChanged("GetResponseButtonEnabled");
+                }
+            }
+        }
+
+        private bool _hasIndeterminateProgress;
+        public bool HasIndeterminateProgress
+        {
+            get
+            {
+                return _hasIndeterminateProgress;
+            }
+            set
+            {
+                if (_hasIndeterminateProgress != value)
+                {
+                    _hasIndeterminateProgress = value;
+                    OnPropertyChanged("HasIndeterminateProgress");
+                }
+            }
+        }
+
+        private string _indeterminateProgressMessage;
+        public string IndeterminateProgressMessage
+        {
+            get
+            {
+                return _indeterminateProgressMessage;
+            }
+            set
+            {
+                if (_indeterminateProgressMessage != value)
+                {
+                    _indeterminateProgressMessage = value;
+                    OnPropertyChanged("IndeterminateProgressMessage");
                 }
             }
         }
@@ -344,20 +377,13 @@ namespace SimpleOAuthTester.WP.Mango.ViewModels
 
         private void EnableProgressIndicator(string text)
         {
-            UIHelper.SafeDispatch(() =>
-                {
-                    indicator.IsIndeterminate = true;
-                    indicator.Text = text;
-                    indicator.IsVisible = true;
-                });
+            IndeterminateProgressMessage = text;
+            HasIndeterminateProgress = true;
         }
 
         private void DisableProgressIndicator()
         {
-            UIHelper.SafeDispatch(() =>
-            {
-                indicator.IsVisible = false;
-            });
+            HasIndeterminateProgress = false;
         }
 
         private void HandleLoaded()
