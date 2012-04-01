@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SimpleOAuth.Net</id>
+    <version>1.0.1</version>
+    <authors>Daniel McKenzie and Chris Benard</authors>
+    <owners>Daniel McKenzie and Chris Benard</owners>
+    <licenseUrl>https://github.com/cbenard/SimpleOAuth.Net/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/cbenard/SimpleOAuth.Net</projectUrl>
+    <iconUrl>http://chrisbenard.net/downloads/oauthlogo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>OAuth libraries come in all shapes and sizes, however in the .Net land, they only come in one - extra large. This library is made to rectify that. It's a small (~15kb) library, with no dependencies that lets you create WebRequest's and sign them to your hearts content.</description>
+    <releaseNotes>Initial NuGet release</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>oauth simpleoauth simpleoauth.net</tags>
+	<frameworkAssemblies>
+	  <frameworkAssembly assemblyName="System" />
+	  <frameworkAssembly assemblyName="System.Core" />
+	  <frameworkAssembly assemblyName="mscorlib.Extensions" targetFramework="sl4-windowsphone71" />
+	  <frameworkAssembly assemblyName="System.Net" targetFramework="sl4-windowsphone71" />
+	  <frameworkAssembly assemblyName="System.Windows" targetFramework="sl4-windowsphone71" />
+	</frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="SimpleOauth\bin\Release\*.*" target="lib\net20" /> 
+	<file src="SimpleOauth.WP.Mango\bin\Release\*.*" target="lib\sl4-windowsphone71" /> 
+  </files>
+</package>
