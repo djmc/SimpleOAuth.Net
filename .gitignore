@@ -50,3 +50,6 @@ packages/
 
 #secret settings
 ApplicationSettings.resx
+
+#generated nuget packages
+*.nupkg
