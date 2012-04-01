@@ -39,14 +39,14 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Bin\Release\SimpleOAuth.WP.Mango.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Windows" />
+    <Reference Include="mscorlib.Extensions" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
-    <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Windows" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SimpleOAuth\Enums.cs">
