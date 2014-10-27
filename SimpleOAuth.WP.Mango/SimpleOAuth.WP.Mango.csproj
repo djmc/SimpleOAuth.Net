@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0632EE3-C5C8-4ED9-9CE4-27486B2B8295}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SimpleOAuth.WP.Mango</RootNamespace>
+    <AssemblyName>SimpleOAuth.WP.Mango</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Bin\Release\SimpleOAuth.WP.Mango.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib.Extensions" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SimpleOAuth\Enums.cs">
+      <Link>Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Generators\HmacSha1Generator.cs">
+      <Link>Generators\HmacSha1Generator.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Generators\IGenerator.cs">
+      <Link>Generators\IGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Generators\ISignatureGenerator.cs">
+      <Link>Generators\ISignatureGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Generators\NonceGenerator.cs">
+      <Link>Generators\NonceGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Generators\TimestampGenerator.cs">
+      <Link>Generators\TimestampGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Internal\AttributeExtensions.cs">
+      <Link>Internal\AttributeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Internal\SignatureMethod.cs">
+      <Link>Internal\SignatureMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Internal\SignatureTypeAttribute.cs">
+      <Link>Internal\SignatureTypeAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\OAuthRequestWrapper.cs">
+      <Link>OAuthRequestWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Tokens.cs">
+      <Link>Tokens.cs</Link>
+    </Compile>
+    <Compile Include="..\SimpleOAuth\Utilities\UrlHelper.cs">
+      <Link>Utilities\UrlHelper.cs</Link>
+    </Compile>
+    <Compile Include="Internal\SortedDictionary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

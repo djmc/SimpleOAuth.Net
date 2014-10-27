@@ -118,6 +118,11 @@ namespace SimpleOAuth
         /// <remarks>This is equivalent to setting <see cref="OAuthRequestWrapper.RequestTokens"/>.</remarks>
         public OAuthRequestWrapper WithTokens(Tokens oauthTokens)
         {
+            if (oauthTokens == null)
+            {
+                throw new ArgumentException("oauthTokens cannot be null", "oauthTokens");
+            }
+
             RequestTokens = oauthTokens;
             return this;
         }
@@ -215,7 +220,7 @@ namespace SimpleOAuth
                 builder.AppendFormat("{0}=\"{1}\"", UrlHelper.Encode(pair.Key), UrlHelper.Encode(pair.Value));
             }
 
-            ContainedRequest.Headers.Add("Authorization", builder.ToString());
+            ContainedRequest.Headers["Authorization"] = builder.ToString();
         }
         #endregion
 

@@ -1,0 +1,28 @@
+﻿<Application 
+    x:Class="SimpleOAuthTester.WP.Mango.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:vm="clr-namespace:SimpleOAuthTester.WP.Mango.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!--Application Resources-->
+    <Application.Resources>
+        <!--Global View Model Locator-->
+        <vm:ViewModelLocator x:Key="Locator"
+                             d:IsDataSource="True" />
+        <sys:String x:Key="ApplicationTitle">SimpleOAuth Tester</sys:String>
+    </Application.Resources>
+
+    <Application.ApplicationLifetimeObjects>
+        <!--Required object that handles lifetime events for the application-->
+        <shell:PhoneApplicationService 
+            Launching="Application_Launching" Closing="Application_Closing" 
+            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+    </Application.ApplicationLifetimeObjects>
+
+</Application>
