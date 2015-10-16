@@ -33,7 +33,7 @@ Made OAuth simple, and I hope you find it really does.
 
 ## What's in here?
 
-You'll find the source above and a solution that's fine for Visual Studio 2010. It is targetting to .Net version 3.0, so if you're using a version of Visual Studio 2008 you can create a new solution, import the project, and you should be good to go.
+You'll find the source above and a solution that's fine for Visual Studio 2010. It is targeting to .Net version 3.0, so if you're using a version of Visual Studio 2008 you can create a new solution, import the project, and you should be good to go.
 
 There are also three examples,
 
@@ -45,4 +45,4 @@ Finally, you'll find a Compiled Help file in the Help directory that documents i
 
 ## License
 
-Simple OAuth .Net is is licensed under the terms of the MIT License, see the included LICENSE file.
+Simple OAuth .Net is licensed under the terms of the MIT License, see the included LICENSE file.
