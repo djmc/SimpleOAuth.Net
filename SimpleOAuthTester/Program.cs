@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 using SimpleOAuth;
-using System.Diagnostics;
+using SimpleOAuth.Utilities;
 using System.IO;
 
 namespace SimpleOAuthTester
