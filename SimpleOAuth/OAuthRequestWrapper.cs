@@ -1,4 +1,4 @@
-﻿// Simple OAuth .Net
+// Simple OAuth .Net
 // (c) 2012 Daniel McKenzie
 // Simple OAuth .Net may be freely distributed under the MIT license.
 
@@ -6,16 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Net;
+using System.Net.Http;
 using SimpleOAuth.Generators;
 using SimpleOAuth.Utilities;
 using SimpleOAuth.Internal;
-using System.ComponentModel;
-using System.IO;
 
 namespace SimpleOAuth
 {
     /// <summary>
-    /// Contains a <see cref="WebRequest"/> and does all the necessary work in order to sign it
+    /// Contains a request and does all the necessary work in order to sign it
     /// as a valid OAuth request before it gets sent.
     /// </summary>
     public sealed class OAuthRequestWrapper
@@ -49,6 +48,7 @@ namespace SimpleOAuth
         #region " Properties "
 
         private WebRequest ContainedRequest { get; set; }
+        private HttpRequestMessage ContainedHttpRequest { get; set; }
 
         /// <summary>
         /// The consumer and access keys (if required) to sign the OAuth request.
@@ -63,7 +63,7 @@ namespace SimpleOAuth
         public EncryptionMethod SigningMethod { get; set; }
 
         /// <summary>
-        /// The parameters to include in the OAuth base signature string when doing a POST request. 
+        /// The parameters to include in the OAuth base signature string when doing a POST request.
         /// </summary>
         /// <remarks>Typically, this would be provided with <see cref="OAuthRequestWrapper.WithPostParameters"/>.</remarks>
         public string PostParameters { get; set; }
@@ -72,12 +72,12 @@ namespace SimpleOAuth
         /// <summary>
         /// The OAuth version to use, by default it is 1.0.
         /// </summary>
-        public string OAuthVersion { 
-            get { 
-                return _oauthVersion; 
-            } 
-            set { 
-                _oauthVersion = value; 
+        public string OAuthVersion {
+            get {
+                return _oauthVersion;
+            }
+            set {
+                _oauthVersion = value;
             }
         }
 
@@ -99,11 +99,20 @@ namespace SimpleOAuth
         #region " Constructor "
 
         /// <summary>
-        /// There is only one constructor, and the OAuthRequestWrapper can only be instantiated internally to the library.
+        /// Creates a wrapper around a <see cref="WebRequest"/> for OAuth signing.
         /// </summary>
         internal OAuthRequestWrapper(WebRequest toContain)
         {
             ContainedRequest = toContain;
+            SigningMethod = OAuthRequestWrapper.DefaultSigningMethod;
+        }
+
+        /// <summary>
+        /// Creates a wrapper around an <see cref="HttpRequestMessage"/> for OAuth signing.
+        /// </summary>
+        internal OAuthRequestWrapper(HttpRequestMessage toContain)
+        {
+            ContainedHttpRequest = toContain;
             SigningMethod = OAuthRequestWrapper.DefaultSigningMethod;
         }
 
@@ -177,22 +186,22 @@ namespace SimpleOAuth
         }
 
         /// <summary>
-        /// Provide the POST request to generate a valid OAuth signature.
+        /// Provide the POST parameters to generate a valid OAuth signature.
         /// </summary>
         /// <param name="parameters">The POST parameters that will be sent.</param>
         /// <returns>Itself to chain.</returns>
         /// <remarks>The OAuth standard requires POST parameters sent in application/x-www-form-urlencoded
-        /// requests to be included in the OAuth base string to create a valid signature. If it is not provided,
-        /// then the request will fail. If this is set, then the <see cref="WebRequest.ContentType"/> of the 
-        /// <see cref="OAuthRequestWrapper.ContainedRequest"/> will  be set to 'application/x-www-form-urlencoded' 
-        /// if it is not already set.</remarks>
+        /// requests to be included in the OAuth base string to create a valid signature.</remarks>
         public OAuthRequestWrapper WithPostParameters(string parameters)
         {
             PostParameters = parameters;
 
-            if (String.IsNullOrEmpty(ContainedRequest.ContentType))
+            if (ContainedRequest != null)
             {
-                ContainedRequest.ContentType = FormUrlEncodedMimeType;
+                if (String.IsNullOrEmpty(ContainedRequest.ContentType))
+                {
+                    ContainedRequest.ContentType = FormUrlEncodedMimeType;
+                }
             }
 
             return this;
@@ -220,7 +229,16 @@ namespace SimpleOAuth
                 builder.AppendFormat("{0}=\"{1}\"", UrlHelper.Encode(pair.Key), UrlHelper.Encode(pair.Value));
             }
 
-            ContainedRequest.Headers["Authorization"] = builder.ToString();
+            var headerValue = builder.ToString();
+
+            if (ContainedRequest != null)
+            {
+                ContainedRequest.Headers["Authorization"] = headerValue;
+            }
+            else if (ContainedHttpRequest != null)
+            {
+                ContainedHttpRequest.Headers.TryAddWithoutValidation("Authorization", headerValue);
+            }
         }
         #endregion
 
@@ -237,20 +255,46 @@ namespace SimpleOAuth
             AuthorizationHeader.Add("oauth_version", OAuthVersion);
         }
 
+        private string GetRequestMethod()
+        {
+            if (ContainedRequest != null)
+                return ContainedRequest.Method;
+            return ContainedHttpRequest.Method.Method;
+        }
+
+        private Uri GetRequestUri()
+        {
+            if (ContainedRequest != null)
+                return ContainedRequest.RequestUri;
+            return ContainedHttpRequest.RequestUri;
+        }
+
+        private string GetContentType()
+        {
+            if (ContainedRequest != null)
+                return ContainedRequest.ContentType;
+            if (ContainedHttpRequest?.Content != null)
+                return ContainedHttpRequest.Content.Headers.ContentType?.MediaType;
+            return null;
+        }
+
         private void createSignature()
         {
-
-            var method = ContainedRequest.Method;
-            var baseUrl = String.Format("{0}://{1}{2}", ContainedRequest.RequestUri.Scheme, ContainedRequest.RequestUri.Host, ContainedRequest.RequestUri.AbsolutePath);
+            var method = GetRequestMethod();
+            var requestUri = GetRequestUri();
+            var baseUrl = String.Format("{0}://{1}{2}", requestUri.Scheme, requestUri.Host, requestUri.AbsolutePath);
 
             var parameters = new SortedDictionary<string, string>(AuthorizationHeader);
-            var queryParams = UrlHelper.ParseQueryString(ContainedRequest.RequestUri.Query);
+            var queryParams = UrlHelper.ParseQueryString(requestUri.Query);
             foreach (var pair in queryParams)
             {
                 parameters.Add(pair.Key, pair.Value);
             }
 
-            if (method.Equals("POST") && !String.IsNullOrEmpty(ContainedRequest.ContentType) && ContainedRequest.ContentType.Equals(FormUrlEncodedMimeType))
+            var contentType = GetContentType();
+            if (method.Equals("POST", StringComparison.OrdinalIgnoreCase)
+                && !String.IsNullOrEmpty(contentType)
+                && contentType.Equals(FormUrlEncodedMimeType, StringComparison.OrdinalIgnoreCase))
             {
                 if (!String.IsNullOrEmpty(PostParameters))
                 {
@@ -274,7 +318,7 @@ namespace SimpleOAuth
             }
 
             // percent encode everything
-            var encodedParams = String.Format("{0}&{1}&{2}", ContainedRequest.Method.ToUpper(), 
+            var encodedParams = String.Format("{0}&{1}&{2}", method.ToUpper(),
                 UrlHelper.Encode(baseUrl), UrlHelper.Encode(paramString.ToString()));
 
             // key
@@ -282,7 +326,7 @@ namespace SimpleOAuth
                 UrlHelper.Encode(RequestTokens.AccessTokenSecret));
 
             // signature time!
-            string signature = SignatureMethod.CreateSignature(this.SigningMethod, encodedParams.ToString(), key);
+            string signature = SignatureMethod.CreateSignature(this.SigningMethod, encodedParams, key);
 
             AuthorizationHeader.Add("oauth_signature", signature);
         }
